@@ -39,7 +39,7 @@ const useOrderBook = () => {
     return () => {
       wsTransport.close().catch(console.error);
     };
-  }, []);
+  }, [queryClient]);
 
   return { data, isLoading };
 };

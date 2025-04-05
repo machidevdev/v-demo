@@ -4,43 +4,34 @@ import { ResizablePanel } from "@/components/ui/resizable";
 import Navbar from "./components/navbar";
 import TickerBar from "./components/tickerBar";
 import OrderBook from "./components/orderbook";
+import MobileView from "./mobileView";
+import { Menubar, MenubarItem } from "@/components/ui/menubar";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 export default function DemoPage() {
   return (
-    <div className="m-2 flex h-screen w-full flex-col border">
+    <div className="flex min-h-screen w-full flex-col border p-2 xl:h-screen">
       <Navbar />
       <TickerBar />
-      <ResizablePanelGroup direction="vertical" className="flex h-full w-full">
-        <ResizablePanel>
-          <ResizablePanelGroup
-            direction="horizontal"
-            className="flex h-full w-full"
-          >
-            <ResizablePanel defaultSize={40} minSize={20} maxSize={60}>
-              <div className="flex h-full w-full items-center justify-center">
-                Chart
-              </div>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={15} minSize={10} maxSize={30}>
-              <div className="h-full w-full">
-                <OrderBook />
-              </div>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={15} minSize={10} maxSize={30}>
-              <div className="h-full w-full">History</div>
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={30} minSize={15} maxSize={40}>
-              <div className="h-full w-full">Commands</div>
-            </ResizablePanel>
-          </ResizablePanelGroup>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel>
-          <div className="h-full w-full">Positions</div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <div className="hidden h-full w-full xl:flex">
+        <MobileView />
+      </div>
+      <div className="flex flex-col xl:hidden">
+        <div className="flex aspect-square w-full items-center justify-center">
+          Chart
+        </div>
+        <Tabs>
+          <TabsList>
+            <TabsTrigger value="history">OrderBook</TabsTrigger>
+            <TabsTrigger value="commands">Commands</TabsTrigger>
+            <TabsTrigger value="positions">Positions</TabsTrigger>
+          </TabsList>
+          <TabsContent value="history">
+            <OrderBook />
+          </TabsContent>
+          <TabsContent value="commands">Commands</TabsContent>
+          <TabsContent value="positions">Positions</TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }
