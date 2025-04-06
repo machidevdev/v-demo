@@ -56,7 +56,7 @@ const TradeSettingsComponent = () => {
       <Button variant="outline">hello</Button>
       <Button variant="outline">
         <Dialog>
-          <DialogTrigger asChild>
+          <DialogTrigger asChild className="h-full w-full">
             <motion.div layoutId="limit-button">Limit</motion.div>
           </DialogTrigger>
           <DialogContent>
