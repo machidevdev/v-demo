@@ -5,6 +5,7 @@ import { ResizablePanelGroup } from "@/components/ui/resizable";
 import { ResizablePanel } from "@/components/ui/resizable";
 import OrderBook from "./components/orderbook";
 import { Trade } from "./components/trade";
+import Positions from "./components/positions";
 export default function DesktopView() {
   return (
     <ResizablePanelGroup direction="vertical" className="flex h-full w-full">
@@ -38,7 +39,9 @@ export default function DesktopView() {
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel>
-        <div className="h-full w-full">Positions</div>
+        <div className="h-full w-full">
+          <Positions />
+        </div>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
