@@ -4,8 +4,8 @@ import { ResizablePanelGroup } from "@/components/ui/resizable";
 
 import { ResizablePanel } from "@/components/ui/resizable";
 import OrderBook from "./components/orderbook";
-
-export default function MobileView() {
+import { Trade } from "./components/trade";
+export default function DesktopView() {
   return (
     <ResizablePanelGroup direction="vertical" className="flex h-full w-full">
       <ResizablePanel>
@@ -30,7 +30,9 @@ export default function MobileView() {
           </ResizablePanel>
           <ResizableHandle withHandle />
           <ResizablePanel defaultSize={30} minSize={15} maxSize={40}>
-            <div className="h-full w-full">Commands</div>
+            <div className="h-full w-full">
+              <Trade />
+            </div>
           </ResizablePanel>
         </ResizablePanelGroup>
       </ResizablePanel>

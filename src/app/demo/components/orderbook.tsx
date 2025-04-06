@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { motion } from "motion/react";
+import { Skeleton } from "@/components/ui/skeleton";
 const maxSize = atom<number>(0);
 
 interface OrderBookSideProps {
@@ -50,6 +51,26 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
   );
 };
 
+const OrderBookSkeleton = () => {
+  return (
+    <div className="flex h-full min-h-0 w-full flex-col">
+      <div className="flex h-1/2 min-h-0 flex-col-reverse gap-1 overflow-y-hidden p-2">
+        {Array.from({ length: 10 }).map((_, i) => (
+          <Skeleton key={i} className="flex min-h-4 w-full" />
+        ))}
+      </div>
+      <div className="flex w-full justify-center py-2">
+        <Skeleton className="h-6 w-24" />
+      </div>
+      <div className="flex h-1/2 min-h-0 flex-col gap-1 p-2">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <Skeleton key={i} className="flex min-h-4 w-full" />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function OrderBook() {
   const { data, isLoading } = useOrderBook();
   const setMaxSize = useSetAtom(maxSize);
@@ -76,15 +97,21 @@ export default function OrderBook() {
         <div>ORDERBOOK</div>
       </CardHeader>
       <CardContent className="flex h-full w-full">
-        <div className="flex h-full min-h-0 w-full flex-col">
-          <div className="flex h-1/2 min-h-0">
-            <OrderBookSide data={data?.levels[0].slice(0, 15)} side="ask" />
+        {isLoading ? (
+          <OrderBookSkeleton />
+        ) : (
+          <div className="flex h-full min-h-0 w-full flex-col">
+            <div className="flex h-1/2 min-h-0">
+              <OrderBookSide data={data?.levels[0].slice(0, 15)} side="ask" />
+            </div>
+            <div className="mx-2 flex w-full text-xs text-muted-foreground">
+              SPREAD: 1
+            </div>
+            <div className="flex h-1/2 min-h-0">
+              <OrderBookSide data={data?.levels[1].slice(0, 15)} side="bid" />
+            </div>
           </div>
-          <div className="flex w-full">Spread: 1</div>
-          <div className="flex h-1/2 min-h-0">
-            <OrderBookSide data={data?.levels[1].slice(0, 15)} side="bid" />
-          </div>
-        </div>
+        )}
       </CardContent>
     </Card>
   );
