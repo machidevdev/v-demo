@@ -1,23 +1,21 @@
 "use client";
-import { ResizableHandle } from "@/components/ui/resizable";
 
-import { ResizablePanelGroup } from "@/components/ui/resizable";
-
-import { ResizablePanel } from "@/components/ui/resizable";
 import OrderBook from "./components/orderbook";
 import { Trade } from "./components/trade";
 import Positions from "./components/positions";
 import { Responsive, WidthProvider } from "react-grid-layout";
-
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect } from "react";
+import TradeHistory from "./components/tradeHistory";
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const l1 = [
   { i: "graph", x: 0, y: 0, w: 4, h: 15 },
-  { i: "orderbook", x: 4, y: 0, w: 4, h: 15 },
-  { i: "history", x: 8, y: 0, w: 1, h: 15 },
+  { i: "orderbook", x: 4, y: 0, w: 3, h: 15 },
+  { i: "history", x: 7, y: 0, w: 2, h: 15 },
   { i: "trade", x: 9, y: 0, w: 3, h: 15 },
-  { i: "positions", x: 0, y: 15, w: 12, h: 15 },
+  { i: "positions", x: 0, y: 18, w: 12, h: 5 },
 ];
 
 const md = [
@@ -25,7 +23,7 @@ const md = [
   { i: "orderbook", x: 5, y: 0, w: 4, h: 15 },
   { i: "history", x: 9, y: 15, w: 1, h: 15 },
   { i: "trade", x: 0, y: 0, w: 5, h: 15 },
-  { i: "positions", x: 5, y: 0, w: 5, h: 15 },
+  { i: "positions", x: 5, y: 0, w: 5, h: 1 },
 ];
 
 const sm = [
@@ -33,10 +31,35 @@ const sm = [
   { i: "orderbook", x: 0, y: 0, w: 3, h: 15 },
   { i: "history", x: 3, y: 0, w: 3, h: 15 },
   { i: "trade", x: 0, y: 0, w: 10, h: 10 },
-  { i: "positions", x: 0, y: 0, w: 10, h: 15 },
+  { i: "positions", x: 0, y: 0, w: 12, h: 15 },
 ];
 
 export default function DesktopView() {
+  useEffect(() => {
+    const handleDragStart = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest(".react-grid-item")) {
+        document.body.style.userSelect = "none";
+        document.body.style.webkitUserSelect = "none";
+      }
+    };
+
+    const handleDragEnd = () => {
+      document.body.style.userSelect = "";
+      document.body.style.webkitUserSelect = "";
+    };
+
+    document.addEventListener("mousedown", handleDragStart);
+    document.addEventListener("mouseup", handleDragEnd);
+    document.addEventListener("dragend", handleDragEnd);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDragStart);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.removeEventListener("dragend", handleDragEnd);
+    };
+  }, []);
+
   return (
     <ResponsiveGridLayout
       className="layout"
@@ -44,20 +67,29 @@ export default function DesktopView() {
       cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       layouts={{ lg: l1, md: md, sm: sm }}
       rowHeight={30}
+      draggableHandle=".drag-handle"
+      isResizable={true}
+      resizeHandles={["se"]}
     >
-      <div key="graph" className="h-full border">
-        graph
+      <div key="graph" className="h-full">
+        <Card className="h-full">
+          <CardHeader>
+            <CardTitle>Graph</CardTitle>
+          </CardHeader>
+        </Card>
       </div>
-      <div key="orderbook" className="h-full">
+      <div key="orderbook">
         <OrderBook />
       </div>
-      <div key="history" className="h-full">
-        History
+      <div key="history">
+        <TradeHistory />
       </div>
       <div key="trade" className="h-full">
+        <div className="drag-handle" />
         <Trade />
       </div>
       <div key="positions" className="h-full">
+        <div className="drag-handle" />
         <Positions />
       </div>
     </ResponsiveGridLayout>

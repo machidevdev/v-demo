@@ -27,7 +27,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
         <div
           key={item.px}
           className={cn(
-            "relative flex h-6 flex-row items-center justify-between p-2",
+            "relative flex h-6 flex-row items-center justify-between p-2 hover:cursor-pointer hover:font-bold",
             side === "ask" && "text-red-500",
             side === "bid" && "text-green-500",
           )}
@@ -36,7 +36,10 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
             className="absolute left-0 top-0 h-full"
             initial={{ opacity: 0 }}
             animate={{
-              width: `${(Number(item.sz) / currentMaxSize) * 100}%`,
+              width:
+                currentMaxSize === 0
+                  ? "0%"
+                  : `${(Number(item.sz) / currentMaxSize) * 100}%`,
               backgroundColor:
                 side === "ask" ? "rgb(239 68 68)" : "rgb(34 197 94)",
               opacity: 0.2,
@@ -44,7 +47,16 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
             transition={{ duration: 0.1, ease: "easeOut" }}
           />
           <div className="z-10">{item.px}</div>
-          <div className="z-10">{item.sz}</div>
+          <motion.div
+            className="z-10"
+            key={item.sz}
+            initial={{ opacity: 0.7, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.1 }}
+          >
+            {item.sz}
+          </motion.div>
         </div>
       ))}
     </div>
@@ -93,8 +105,8 @@ export default function OrderBook() {
 
   return (
     <Card className="h-full w-full overflow-hidden">
-      <CardHeader className="p-2">
-        <div>ORDERBOOK</div>
+      <CardHeader className="">
+        <div>Order book</div>
       </CardHeader>
       <CardContent className="flex h-[calc(100%-40px)] w-full overflow-hidden">
         {isLoading ? (

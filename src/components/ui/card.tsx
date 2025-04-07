@@ -5,12 +5,15 @@ import { cn } from "@/lib/utils";
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("bg-card text-card-foreground", className)}
+    className={cn("bg-card p-4 text-card-foreground", className)}
     {...props}
-  />
+  >
+    <div className="drag-handle" />
+    {children}
+  </div>
 ));
 Card.displayName = "Card";
 
