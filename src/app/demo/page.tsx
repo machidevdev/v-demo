@@ -11,10 +11,10 @@ import DesktopView from "./desktopView";
 import Positions from "./components/positions";
 export default function DemoPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col border p-2 xl:h-screen">
+    <div className="flex min-h-screen w-full flex-col border p-2">
       <Navbar />
       <TickerBar />
-      <div className="h-full w-full">
+      <div className="w-full flex-1">
         <DesktopView />
       </div>
     </div>

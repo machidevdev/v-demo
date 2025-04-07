@@ -27,11 +27,11 @@ const md = [
 ];
 
 const sm = [
-  { i: "graph", x: 0, y: 0, w: 6, h: 15 },
-  { i: "orderbook", x: 0, y: 0, w: 3, h: 15 },
-  { i: "history", x: 3, y: 0, w: 3, h: 15 },
-  { i: "trade", x: 0, y: 0, w: 10, h: 10 },
-  { i: "positions", x: 0, y: 0, w: 12, h: 15 },
+  { i: "graph", x: 0, y: 0, w: 6, h: 10, static: true },
+  { i: "orderbook", x: 0, y: 10, w: 6, h: 10, static: true },
+  { i: "history", x: 0, y: 20, w: 6, h: 10, static: true },
+  { i: "trade", x: 0, y: 30, w: 6, h: 10, static: true },
+  { i: "positions", x: 0, y: 40, w: 6, h: 10, static: true },
 ];
 
 export default function DesktopView() {
@@ -62,13 +62,13 @@ export default function DesktopView() {
 
   return (
     <ResponsiveGridLayout
+      autoSize={true}
       className="layout"
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
       cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       layouts={{ lg: l1, md: md, sm: sm }}
       rowHeight={30}
       draggableHandle=".drag-handle"
-      isResizable={true}
       resizeHandles={["se"]}
     >
       <div key="graph" className="h-full">

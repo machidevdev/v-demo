@@ -47,16 +47,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
             transition={{ duration: 0.1, ease: "easeOut" }}
           />
           <div className="z-10">{item.px}</div>
-          <motion.div
-            className="z-10"
-            key={item.sz}
-            initial={{ opacity: 0.7, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.1 }}
-          >
-            {item.sz}
-          </motion.div>
+          <div className="z-10">{item.sz}</div>
         </div>
       ))}
     </div>
