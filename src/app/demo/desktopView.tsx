@@ -73,9 +73,7 @@ export default function DesktopView() {
     >
       <div key="graph" className="h-full">
         <Card className="h-full">
-          <CardHeader>
-            <CardTitle>Graph</CardTitle>
-          </CardHeader>
+          <CardHeader>Graph</CardHeader>
         </Card>
       </div>
       <div key="orderbook">
