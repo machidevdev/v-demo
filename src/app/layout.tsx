@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TRPCReactProvider } from "@/trpc/react";
 import { WagmiClient } from "@/web3/wagmi-client";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
+import { ThemeProvider } from "@/app/demo/components/theme-provider";
 export const metadata: Metadata = {
   title: "V-demo",
   description: "V-demo",
@@ -18,14 +18,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={``}>
+    <html lang="en" suppressHydrationWarning className={``}>
       <body>
-        <Toaster />
-        <TooltipProvider>
-          <WagmiClient>
-            <TRPCReactProvider>{children}</TRPCReactProvider>
-          </WagmiClient>
-        </TooltipProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster />
+          <TooltipProvider>
+            <WagmiClient>
+              <TRPCReactProvider>{children}</TRPCReactProvider>
+            </WagmiClient>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
