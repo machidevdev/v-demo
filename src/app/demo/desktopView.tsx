@@ -11,11 +11,11 @@ import TradeHistory from "./components/tradeHistory";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const l1 = [
-  { i: "graph", x: 0, y: 0, w: 4, h: 15 },
-  { i: "orderbook", x: 4, y: 0, w: 3, h: 15 },
-  { i: "history", x: 7, y: 0, w: 2, h: 15 },
-  { i: "trade", x: 9, y: 0, w: 3, h: 15 },
-  { i: "positions", x: 0, y: 18, w: 12, h: 5 },
+  { i: "graph", x: 0, y: 0, w: 4, h: 15, minW: 2 },
+  { i: "orderbook", x: 4, y: 0, w: 3, h: 15, minW: 2 },
+  { i: "history", x: 7, y: 0, w: 2, h: 15, minW: 2 },
+  { i: "trade", x: 9, y: 0, w: 3, h: 15, minW: 2 },
+  { i: "positions", x: 0, y: 18, w: 12, h: 5, minW: 4 },
 ];
 
 const md = [
