@@ -7,6 +7,7 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect } from "react";
 import TradeHistory from "./components/tradeHistory";
+import TradingViewWidget from "./components/tv";
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -72,9 +73,7 @@ export default function DesktopView() {
       resizeHandles={["se"]}
     >
       <div key="graph" className="h-full">
-        <Card className="h-full">
-          <CardHeader>Graph</CardHeader>
-        </Card>
+        <TradingViewWidget />
       </div>
       <div key="orderbook">
         <OrderBook />

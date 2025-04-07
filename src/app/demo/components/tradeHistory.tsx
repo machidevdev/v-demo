@@ -47,7 +47,7 @@ const TradeHistory = () => {
                 <div
                   className={cn(
                     "truncate",
-                    trade.side === "B" ? "text-green-500" : "text-red-500",
+                    trade.side === "B" ? "text-success" : "text-error",
                   )}
                 >
                   {trade.coin}

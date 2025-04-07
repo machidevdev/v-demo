@@ -29,7 +29,7 @@ const useTrades = () => {
             const newTrades = data.filter(
               (trade) => !existingIds.has(trade.tid),
             );
-            return [...newTrades, ...(old || [])].slice(0, 19);
+            return [...newTrades, ...(old || [])].slice(0, 50);
           });
         },
       )
