@@ -73,18 +73,16 @@ const TradeSettingsComponent = () => {
       <Button variant="outline" className="lowercase">
         isolated
       </Button>
-      <Button variant="outline">
-        <Dialog>
-          <DialogTrigger asChild className="h-full w-full">
-            <div className="w-ful">Limit</div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Limit</DialogTitle>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      </Button>
+      <Dialog>
+        <DialogTrigger className="h-full w-full" asChild>
+          <Button variant="outline">Limit</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Limit</DialogTitle>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
 
       <Button disabled variant="outline">
         hello
