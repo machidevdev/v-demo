@@ -157,7 +157,7 @@ const TradeButton = () => {
   return (
     <Button
       className={cn(
-        "border border-green-500 bg-transparent text-foreground hover:bg-green-500/80",
+        "border-success hover:bg-success/80 border bg-transparent text-foreground",
         isPending && "animate-pulse",
       )}
       disabled={isPending}
@@ -175,9 +175,9 @@ const TradeForm = () => {
     <div className="flex flex-row justify-around gap-2">
       <Button
         className={cn(
-          "w-full border border-green-500 bg-transparent text-foreground transition-all duration-200 ease-in-out hover:bg-green-500/10",
+          "border-success hover:bg-success/10 w-full border bg-transparent text-foreground transition-all duration-200 ease-in-out",
           tradeDirection === "long" &&
-            "bg-green-500 text-white hover:bg-green-600",
+            "bg-success hover:bg-success/60 text-white",
         )}
         onClick={() => setTradeDirection("long")}
       >
@@ -185,9 +185,8 @@ const TradeForm = () => {
       </Button>
       <Button
         className={cn(
-          "w-full border border-red-500 bg-transparent text-foreground transition-all duration-200 ease-in-out hover:bg-red-500/10",
-          tradeDirection === "short" &&
-            "bg-red-500 text-white hover:bg-red-600",
+          "border-error hover:bg-error/10 w-full border bg-transparent text-foreground transition-all duration-200 ease-in-out",
+          tradeDirection === "short" && "bg-error hover:bg-error/60 text-white",
         )}
         onClick={() => setTradeDirection("short")}
       >

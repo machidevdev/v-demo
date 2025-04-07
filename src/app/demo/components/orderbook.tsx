@@ -28,8 +28,8 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
           key={item.px}
           className={cn(
             "relative flex h-6 flex-row items-center justify-between p-2 hover:cursor-pointer hover:font-bold",
-            side === "ask" && "text-red-500",
-            side === "bid" && "text-green-500",
+            side === "ask" && "text-error",
+            side === "bid" && "text-success",
           )}
         >
           <motion.div
@@ -41,7 +41,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
                   ? "0%"
                   : `${(Number(item.sz) / currentMaxSize) * 100}%`,
               backgroundColor:
-                side === "ask" ? "rgb(239 68 68)" : "rgb(34 197 94)",
+                side === "ask" ? "var(--error)" : "var(--success)",
               opacity: 0.2,
             }}
             transition={{ duration: 0.1, ease: "easeOut" }}
