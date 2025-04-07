@@ -6,6 +6,7 @@ import {
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { NavigationMenu } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { ThemeToggle } from "@/app/demo/components/theme-toggle";
 
 export default function Navbar() {
   return (
@@ -24,6 +25,9 @@ export default function Navbar() {
               Documentation
             </NavigationMenuLink>
           </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <ThemeToggle />
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

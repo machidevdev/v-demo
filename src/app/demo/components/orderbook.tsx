@@ -27,7 +27,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
         <div
           key={item.px}
           className={cn(
-            "relative flex h-6 flex-row items-center justify-between p-2",
+            "relative flex h-6 flex-row items-center justify-between p-2 hover:cursor-pointer hover:font-bold",
             side === "ask" && "text-red-500",
             side === "bid" && "text-green-500",
           )}
@@ -36,7 +36,10 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
             className="absolute left-0 top-0 h-full"
             initial={{ opacity: 0 }}
             animate={{
-              width: `${(Number(item.sz) / currentMaxSize) * 100}%`,
+              width:
+                currentMaxSize === 0
+                  ? "0%"
+                  : `${(Number(item.sz) / currentMaxSize) * 100}%`,
               backgroundColor:
                 side === "ask" ? "rgb(239 68 68)" : "rgb(34 197 94)",
               opacity: 0.2,
@@ -53,7 +56,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
 
 const OrderBookSkeleton = () => {
   return (
-    <div className="flex h-full min-h-0 w-full flex-col">
+    <div className="flex min-h-0 w-full flex-col">
       <div className="flex h-1/2 min-h-0 flex-col-reverse gap-1 overflow-y-hidden p-2">
         {Array.from({ length: 10 }).map((_, i) => (
           <Skeleton key={i} className="flex min-h-4 w-full" />
@@ -92,22 +95,22 @@ export default function OrderBook() {
   }, [data, setMaxSize]);
 
   return (
-    <Card className="h-full w-full">
-      <CardHeader>
-        <div>ORDERBOOK</div>
+    <Card className="h-full w-full overflow-hidden">
+      <CardHeader className="">
+        <div>Order book</div>
       </CardHeader>
-      <CardContent className="flex h-full w-full">
+      <CardContent className="flex h-[calc(100%-40px)] w-full overflow-hidden">
         {isLoading ? (
           <OrderBookSkeleton />
         ) : (
           <div className="flex h-full min-h-0 w-full flex-col">
-            <div className="flex h-1/2 min-h-0">
+            <div className="flex h-1/2 min-h-0 overflow-hidden">
               <OrderBookSide data={data?.levels[0].slice(0, 15)} side="ask" />
             </div>
-            <div className="mx-2 flex w-full text-xs text-muted-foreground">
+            <div className="mx-2 flex w-full justify-center py-1 text-xs text-muted-foreground">
               SPREAD: 1
             </div>
-            <div className="flex h-1/2 min-h-0">
+            <div className="flex h-1/2 min-h-0 overflow-hidden">
               <OrderBookSide data={data?.levels[1].slice(0, 15)} side="bid" />
             </div>
           </div>

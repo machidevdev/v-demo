@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { ChevronDown } from "lucide-react";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   Tooltip,
@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { motion } from "motion/react";
+import { useState } from "react";
 type TradeSettings = {
   margin: "isolated" | "cross";
   leverage: number;
@@ -40,6 +41,22 @@ const tradeSettingsAtom = atom<TradeSettings>({
   leverage: 10,
 });
 
+const proOptions = [
+  {
+    label: "Pro",
+    value: "pro",
+  },
+  {
+    label: "Pro1",
+    value: "pro1",
+  },
+  {
+    label: "Pro2",
+    value: "pro2",
+  },
+] as const;
+type ProOption = (typeof proOptions)[number];
+const proOptionsAtom = atom<ProOption>(proOptions[0]);
 const tradeAmountAtom = atom<number>(0);
 const balanceAtom = atom<number>(100);
 const tradeDirectionAtom = atom<"long" | "short">("long");
@@ -53,19 +70,19 @@ const TradeSettings = () => {
 const TradeSettingsComponent = () => {
   return (
     <div className="grid grid-cols-3 gap-2">
-      <Button variant="outline">hello</Button>
-      <Button variant="outline">
-        <Dialog>
-          <DialogTrigger asChild className="h-full w-full">
-            <motion.div layoutId="limit-button">Limit</motion.div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Limit</DialogTitle>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+      <Button variant="outline" className="lowercase">
+        isolated
       </Button>
+      <Dialog>
+        <DialogTrigger className="h-full w-full" asChild>
+          <Button variant="outline">Limit</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Limit</DialogTitle>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
 
       <Button disabled variant="outline">
         hello
@@ -75,20 +92,35 @@ const TradeSettingsComponent = () => {
 };
 
 const TradeType = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useAtom(proOptionsAtom);
   return (
     <div className="grid grid-cols-3 gap-2">
       <Button variant="ghost" className="flex items-center justify-center">
         Market
       </Button>
 
-      <DropdownMenu>
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost">Pro</Button>
+          <Button variant="ghost" className="flex items-center justify-center">
+            <div>{selectedOption.label}</div>
+            <ChevronDown
+              className={cn(
+                isOpen && "rotate-180",
+                "transition-all duration-300",
+              )}
+            />
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>Pro</DropdownMenuItem>
-          <DropdownMenuItem>Pro</DropdownMenuItem>
-          <DropdownMenuItem>Pro</DropdownMenuItem>
+          {proOptions.map((option) => (
+            <DropdownMenuItem
+              key={option.value}
+              onClick={() => setSelectedOption(option)}
+            >
+              {option.label}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
