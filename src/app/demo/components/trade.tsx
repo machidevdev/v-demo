@@ -53,11 +53,13 @@ const TradeSettings = () => {
 const TradeSettingsComponent = () => {
   return (
     <div className="grid grid-cols-3 gap-2">
-      <Button variant="outline">hello</Button>
+      <Button variant="outline" className="lowercase">
+        isolated
+      </Button>
       <Button variant="outline">
         <Dialog>
           <DialogTrigger asChild className="h-full w-full">
-            <motion.div layoutId="limit-button">Limit</motion.div>
+            <div className="w-ful">Limit</div>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
