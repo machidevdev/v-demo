@@ -2,7 +2,7 @@ import { Menubar, MenubarTrigger, MenubarMenu } from "@/components/ui/menubar";
 
 export default function TickerBar() {
   return (
-    <Menubar className="flex w-full justify-start rounded-none border-b border-l-0 border-r-0 border-t bg-transparent px-1 py-2 xl:px-4">
+    <Menubar className="flex w-full justify-start rounded-none bg-transparent px-1 py-2 xl:px-4">
       <MenubarMenu>
         <MenubarTrigger className="text-xl">BTC/USD</MenubarTrigger>
       </MenubarMenu>

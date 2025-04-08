@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import * as hl from "@nktkas/hyperliquid";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 
 const getOrderbook = async () => {
   const httpTransport = new hl.HttpTransport();
@@ -13,22 +14,22 @@ const getOrderbook = async () => {
   return book;
 };
 
-const useOrderBook = () => {
+const useOrderBook = (n: number) => {
   const { data, isLoading } = useQuery({
     queryKey: ["orderbook", "BTC"],
     queryFn: getOrderbook,
   });
 
   const queryClient = useQueryClient();
-
+  const effectiveN = n == 1 ? 1 : n == 2 ? 2 : n == 3 ? 3 : n == 4 ? 4 : 5;
   useEffect(() => {
     const wsTransport = new hl.WebSocketTransport();
     const client = new hl.EventClient({ transport: wsTransport });
-
     client
       .l2Book(
         {
           coin: "BTC",
+          nSigFigs: effectiveN == 1 ? null : effectiveN,
         },
         (data) => {
           queryClient.setQueryData(["orderbook", "BTC"], data);
@@ -39,7 +40,7 @@ const useOrderBook = () => {
     return () => {
       wsTransport.close().catch(console.error);
     };
-  }, [queryClient]);
+  }, [queryClient, effectiveN]);
 
   return { data, isLoading };
 };
