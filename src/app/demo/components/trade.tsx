@@ -157,7 +157,7 @@ const TradeButton = () => {
   return (
     <Button
       className={cn(
-        "border-success hover:bg-success/80 border bg-transparent text-foreground",
+        "border border-success bg-transparent text-foreground hover:bg-success/80",
         isPending && "animate-pulse",
       )}
       disabled={isPending}
@@ -175,9 +175,9 @@ const TradeForm = () => {
     <div className="flex flex-row justify-around gap-2">
       <Button
         className={cn(
-          "border-success hover:bg-success/10 w-full border bg-transparent text-foreground transition-all duration-200 ease-in-out",
+          "w-full border border-success bg-transparent text-foreground transition-all duration-200 ease-in-out hover:bg-success/10",
           tradeDirection === "long" &&
-            "bg-success hover:bg-success/60 text-white",
+            "bg-success text-white hover:bg-success/60",
         )}
         onClick={() => setTradeDirection("long")}
       >
@@ -185,8 +185,8 @@ const TradeForm = () => {
       </Button>
       <Button
         className={cn(
-          "border-error hover:bg-error/10 w-full border bg-transparent text-foreground transition-all duration-200 ease-in-out",
-          tradeDirection === "short" && "bg-error hover:bg-error/60 text-white",
+          "w-full border border-error bg-transparent text-foreground transition-all duration-200 ease-in-out hover:bg-error/10",
+          tradeDirection === "short" && "bg-error text-white hover:bg-error/60",
         )}
         onClick={() => setTradeDirection("short")}
       >
@@ -200,7 +200,8 @@ export const Trade = () => {
   const [tradeAmount, setTradeAmount] = useAtom(tradeAmountAtom);
   const [balance, setBalance] = useAtom(balanceAtom);
   return (
-    <Card className="flex h-full flex-col p-2">
+    <Card className="flex h-full flex-col">
+      <CardHeader />
       <CardContent className="flex flex-col gap-2">
         <TradeSettingsComponent />
         <TradeType />
