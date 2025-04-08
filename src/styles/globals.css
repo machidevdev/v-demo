@@ -154,12 +154,6 @@
 
 .react-grid-item .drag-handle {
   cursor: move;
-  height: 20px;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: transparent;
 }
 
 .react-resizable-hide > .react-resizable-handle {

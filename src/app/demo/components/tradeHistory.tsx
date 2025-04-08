@@ -33,16 +33,18 @@ const TradeHistory = () => {
 
   return (
     <Card className="h-full overflow-hidden">
-      <CardHeader>Trade History</CardHeader>
-      <CardContent className="h-full overflow-y-hidden">
+      <CardHeader className="pt-3">
+        <div>Trade History</div>
+      </CardHeader>
+      <CardContent className="flex min-h-0 w-full overflow-hidden">
         {isLoading || data?.length === 0 ? (
           <TradeHistorySkeleton />
         ) : (
-          <div className="space-y-2 overflow-y-hidden">
+          <div className="flex h-full min-h-0 w-full flex-col gap-1 p-2">
             {limitedTrades.map((trade) => (
               <div
                 key={trade.tid}
-                className="grid grid-cols-3 gap-2 overflow-hidden text-sm"
+                className="flex flex-row items-center justify-between text-xs"
               >
                 <div
                   className={cn(

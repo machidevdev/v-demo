@@ -1,5 +1,5 @@
 // TradingViewWidget.jsx
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import React, { useEffect, useRef, memo } from "react";
 
 function TradingViewWidget() {
@@ -30,12 +30,13 @@ function TradingViewWidget() {
 
   return (
     <Card
-      className="tradingview-widget-container h-full w-full p-0"
+      className="tradingview-widget-container h-full w-full"
       ref={container}
     >
+      <CardHeader />
       <div
         className="tradingview-widget-container__widget"
-        style={{ height: "calc(100% - 32px)", width: "100%" }}
+        style={{ height: "calc(100% - px)", width: "100%" }}
       ></div>
     </Card>
   );

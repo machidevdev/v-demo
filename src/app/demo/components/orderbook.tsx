@@ -112,7 +112,7 @@ export default function OrderBook() {
         <div>Order book</div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
+            <Button variant="ghost" className="">
               {orderSizes[orderSize as keyof typeof orderSizes]}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
