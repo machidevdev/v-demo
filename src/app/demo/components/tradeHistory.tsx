@@ -5,6 +5,14 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { useMemo } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const MAX_TRADES = 50; // Maximum number of trades to display
 
@@ -41,25 +49,43 @@ const TradeHistory = () => {
           <TradeHistorySkeleton />
         ) : (
           <div className="flex h-full min-h-0 w-full flex-col gap-1 p-2">
-            {limitedTrades.map((trade) => (
-              <div
-                key={trade.tid}
-                className="flex flex-row items-center justify-between text-xs"
-              >
-                <div
-                  className={cn(
-                    "truncate",
-                    trade.side === "B" ? "text-success" : "text-error",
-                  )}
-                >
-                  {trade.coin}
-                </div>
-                <div className="truncate text-muted-foreground">{trade.px}</div>
-                <div className="truncate text-right text-muted-foreground">
-                  {trade.sz}
-                </div>
-              </div>
-            ))}
+            <Table>
+              <TableHeader className="p-0">
+                <TableRow className="p-0">
+                  <TableHead className="text-left">Coin</TableHead>
+                  <TableHead className="text-right">Price</TableHead>
+                  <TableHead className="text-right">Size</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <AnimatePresence initial={false}>
+                  {limitedTrades.map((trade) => (
+                    <motion.tr
+                      key={trade.tid}
+                      initial={{ opacity: 0.8, x: 2 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 10 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                    >
+                      <TableCell
+                        className={cn(
+                          "truncate",
+                          trade.side === "B" ? "text-success" : "text-error",
+                        )}
+                      >
+                        {trade.coin}
+                      </TableCell>
+                      <TableCell className="truncate text-right text-muted-foreground">
+                        {trade.px}
+                      </TableCell>
+                      <TableCell className="truncate text-right text-muted-foreground">
+                        {trade.sz}
+                      </TableCell>
+                    </motion.tr>
+                  ))}
+                </AnimatePresence>
+              </TableBody>
+            </Table>
           </div>
         )}
       </CardContent>

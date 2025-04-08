@@ -19,7 +19,7 @@ import { ChevronDown } from "lucide-react";
 import { orderSizeAtom } from "@/store/orderbook";
 
 const maxSize = atom<number>(0);
-const orderSizeState = atom<number>(5);
+const orderSizeState = atom<number>(10);
 
 interface OrderBookSideProps {
   data: BookLevel[] | undefined;
@@ -38,7 +38,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
         <div
           key={item.px}
           className={cn(
-            "relative flex h-8 flex-row items-center justify-between p-2 text-sm hover:cursor-pointer hover:font-semibold",
+            "relative flex h-4 flex-row items-center justify-between p-2 text-sm hover:cursor-pointer hover:font-semibold",
             side === "ask" && "text-error",
             side === "bid" && "text-success",
           )}
@@ -55,7 +55,7 @@ const OrderBookSide = ({ data, side }: OrderBookSideProps) => {
                 side === "ask" ? "hsl(var(--error))" : "hsl(var(--success))",
               opacity: 0.2,
             }}
-            transition={{ duration: 0.1, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "backInOut" }}
           />
           <div className="z-10">{item.px}</div>
           <div className="z-10">{item.sz}</div>
@@ -112,13 +112,14 @@ export default function OrderBook() {
         <div>Order book</div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="">
+            <Button variant="ghost" className="border-none">
               {orderSizes[orderSize as keyof typeof orderSizes]}
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem onClick={() => setOrderSize(10)}>
+              {" "}
               1
             </DropdownMenuItem>
 
